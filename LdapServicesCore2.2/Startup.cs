@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LdapServices.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LdapServicesCore2._2 {
     public class Startup {
@@ -22,6 +24,10 @@ namespace LdapServicesCore2._2 {
             services.AddSpaStaticFiles(configuration => {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=LdapServices;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<LdapDatabaseContext>
+                (options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

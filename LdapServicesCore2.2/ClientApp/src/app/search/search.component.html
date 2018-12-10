@@ -1,0 +1,43 @@
+<h1>Search</h1>
+<form [formGroup]="searchForm" class="example-form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="First name" formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Last Name" formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Email Address" formControlName="email">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="IUP Campus Address" formControlName="businessAddress">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="IUP Phone Number" formControlName="phone">
+  </mat-form-field>
+  <!--<mat-form-field class="example-full-width">
+    <input matInput placeholder="IUP Tag" formControlName="tag">
+  </mat-form-field>-->
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="!searchForm.valid">Search</button>
+</form>
+
+<div *ngIf="users != undefined">
+  <mat-card *ngFor="let user of users" class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+      <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+      <mat-card-subtitle>{{user.businessAddress}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content *ngIf="user.assignedTags != undefined">
+      <div *ngFor="let tag of user.assignedTags">
+        <p>{{tag.tag.tagName}}</p>
+        <p><i>{{tag.tag.tagDescription}}</i></p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent">COPY</button>
+      <button mat-raised-button color="accent">CONTACT</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
